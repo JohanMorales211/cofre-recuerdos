@@ -32,7 +32,9 @@ jobs:
           cache: npm
 
       - name: Instalar dependencias
-        run: npm ci
+        # npm install (no "npm ci") para tolerar diferencias de versión de npm
+        # entre tu máquina y el runner de GitHub, que hacían fallar a npm ci.
+        run: npm install --no-audit --no-fund
 
       - name: Build estático (SPA con ruta base /cofre-recuerdos/)
         run: npm run build:pages
