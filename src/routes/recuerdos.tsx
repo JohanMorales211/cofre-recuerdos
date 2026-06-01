@@ -13,6 +13,7 @@ import {
 import { formatDistanceToNow } from "date-fns";
 import { es } from "date-fns/locale";
 import { getRecuerdos, getUltimaActualizacion, parseFecha, type Recuerdo } from "@/lib/recuerdos";
+import { asset } from "@/lib/asset";
 
 export const Route = createFileRoute("/recuerdos")({
   head: () => ({
@@ -161,7 +162,7 @@ function PhotoViewer({ photos, title }: { photos: string[]; title: string }) {
   if (photos.length === 1) {
     return (
       <img
-        src={photos[0]}
+        src={asset(photos[0])}
         alt={title}
         loading="lazy"
         className="mx-auto mb-5 max-h-[44vh] w-auto rounded-xl object-contain shadow-soft sm:max-h-[56vh]"
@@ -176,7 +177,7 @@ function PhotoViewer({ photos, title }: { photos: string[]; title: string }) {
           {photos.map((url, i) => (
             <CarouselItem key={i} className="flex items-center justify-center">
               <img
-                src={url}
+                src={asset(url)}
                 alt={`${title} ${i + 1}`}
                 loading="lazy"
                 className="mx-auto max-h-[44vh] w-auto rounded-xl object-contain shadow-soft sm:max-h-[56vh]"
@@ -288,7 +289,7 @@ function MemoryCard({ m, onOpen, index }: { m: Recuerdo; onOpen: () => void; ind
       <div className="relative aspect-[4/3] overflow-hidden bg-gradient-warm">
         {cover ? (
           <img
-            src={cover}
+            src={asset(cover)}
             alt={m.title}
             loading="lazy"
             className="h-full w-full object-cover transition-transform duration-500 group-hover:scale-105"
