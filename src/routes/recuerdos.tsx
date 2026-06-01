@@ -34,10 +34,8 @@ function Recuerdos() {
   const [view, setView] = useState<"shelf" | "grid">("shelf");
   const [open, setOpen] = useState<Recuerdo | null>(null);
 
-  // Los recuerdos salen del JSON local (src/data/recuerdos.json).
   const memories = useMemo(() => getRecuerdos(), []);
 
-  // Agrupados por año para los "Capítulos" de la estantería.
   const chapters = useMemo(() => {
     const map = new Map<string, Recuerdo[]>();
     for (const m of memories) {
@@ -81,10 +79,9 @@ function Recuerdos() {
         </div>
       )}
 
-      {/* Lector / apertura del libro */}
       <Dialog open={!!open} onOpenChange={(o) => !o && setOpen(null)}>
         {open && (
-          <DialogContent className="flex max-h-[92vh] w-[calc(100%-1.5rem)] max-w-2xl flex-col gap-0 overflow-hidden border-border bg-card p-0 sm:max-h-[88vh]">
+          <DialogContent className="flex h-[100dvh] w-full max-w-none flex-col gap-0 overflow-hidden rounded-none border-0 bg-card p-0 sm:h-auto sm:max-h-[88vh] sm:w-[calc(100%-1.5rem)] sm:max-w-2xl sm:rounded-lg sm:border sm:border-border">
             <div className="flex min-h-0 flex-1 flex-col bg-paper animate-open-book">
               <DialogHeader className="shrink-0 border-b border-border/60 bg-gradient-warm px-6 py-5 pr-12 text-left">
                 <DialogTitle className="font-serif text-2xl sm:text-3xl">{open.title}</DialogTitle>
@@ -136,7 +133,7 @@ function PhotoViewer({ photos, title }: { photos: string[]; title: string }) {
         src={photos[0]}
         alt={title}
         loading="lazy"
-        className="mx-auto mb-5 max-h-[52vh] w-auto rounded-xl object-contain shadow-soft sm:max-h-[58vh]"
+        className="mx-auto mb-5 max-h-[44vh] w-auto rounded-xl object-contain shadow-soft sm:max-h-[56vh]"
       />
     );
   }
@@ -151,7 +148,7 @@ function PhotoViewer({ photos, title }: { photos: string[]; title: string }) {
                 src={url}
                 alt={`${title} ${i + 1}`}
                 loading="lazy"
-                className="mx-auto max-h-[52vh] w-auto rounded-xl object-contain shadow-soft sm:max-h-[58vh]"
+                className="mx-auto max-h-[44vh] w-auto rounded-xl object-contain shadow-soft sm:max-h-[56vh]"
               />
             </CarouselItem>
           ))}
@@ -160,7 +157,6 @@ function PhotoViewer({ photos, title }: { photos: string[]; title: string }) {
         <CarouselNext className="right-2 border-0 bg-background/80 backdrop-blur hover:bg-background" />
       </Carousel>
 
-      {/* puntos indicadores */}
       <div className="mt-3 flex items-center justify-center gap-2">
         {Array.from({ length: count }).map((_, i) => (
           <button
@@ -218,22 +214,30 @@ function ChapterShelf({
 
       <div className="rounded-2xl bg-gradient-shelf p-3 shadow-book md:p-4">
         <div className="flex flex-wrap items-end gap-1.5 overflow-x-auto rounded-lg bg-card/40 p-3">
-          {items.map((m, i) => (
-            <button
-              key={m.id}
-              onClick={() => onOpen(m)}
-              title={m.title}
-              className="group relative flex h-44 w-10 shrink-0 flex-col items-center justify-between rounded-sm px-1 py-3 text-center shadow-soft transition-all hover:-translate-y-2 hover:shadow-book md:h-56 md:w-12"
-              style={{ background: SPINE_COLORS[i % SPINE_COLORS.length] }}
-            >
-              <span className="line-clamp-3 origin-center -rotate-90 whitespace-nowrap pt-8 font-serif text-xs text-primary-foreground/95 md:text-sm">
-                {m.title}
-              </span>
-              <span className="text-[9px] font-medium text-primary-foreground/80">
-                {parseFecha(m.memory_date).getFullYear()}
-              </span>
-            </button>
-          ))}
+          {items.map((m, i) => {
+            const fecha = parseFecha(m.memory_date);
+            const dia = String(fecha.getDate()).padStart(2, "0");
+            const mes = String(fecha.getMonth() + 1).padStart(2, "0");
+            return (
+              <button
+                key={m.id}
+                onClick={() => onOpen(m)}
+                title={m.title}
+                className="group relative flex h-44 w-10 shrink-0 flex-col items-center justify-between rounded-sm px-1 py-4 text-center shadow-soft transition-all hover:-translate-y-2 hover:shadow-book md:h-56 md:w-12"
+                style={{ background: SPINE_COLORS[i % SPINE_COLORS.length] }}
+              >
+                {/* fecha del recuerdo en números: día sobre mes */}
+                <span className="flex flex-col items-center gap-1 font-serif text-primary-foreground">
+                  <span className="text-xl leading-none md:text-2xl">{dia}</span>
+                  <span className="h-px w-4 bg-primary-foreground/50" />
+                  <span className="text-sm leading-none text-primary-foreground/90 md:text-base">{mes}</span>
+                </span>
+                <span className="text-[10px] font-semibold tracking-widest text-primary-foreground/85 md:text-xs">
+                  {fecha.getFullYear()}
+                </span>
+              </button>
+            );
+          })}
         </div>
         {/* tabla del estante */}
         <div className="mt-1 h-2 rounded-b-lg bg-gradient-to-b from-[oklch(0.65_0.06_50)] to-[oklch(0.5_0.07_45)] shadow-inner" />
