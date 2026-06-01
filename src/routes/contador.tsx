@@ -34,7 +34,6 @@ function diffParts(from: Date, to: Date) {
 }
 
 function Contador() {
-  const start = new Date(FECHA_INICIO);
   const [now, setNow] = useState(() => new Date());
 
   useEffect(() => {
@@ -42,20 +41,36 @@ function Contador() {
     return () => clearInterval(id);
   }, []);
 
-  const p = diffParts(start, now);
-  const totalDays = Math.floor((now.getTime() - start.getTime()) / 86400000);
+  const start = FECHA_INICIO ? new Date(FECHA_INICIO) : null;
+  const yaOficial =
+    start !== null && !Number.isNaN(start.getTime()) && start.getTime() <= now.getTime();
+
+  const p = yaOficial
+    ? diffParts(start as Date, now)
+    : { years: 0, months: 0, days: 0, hours: 0, minutes: 0, seconds: 0 };
+  const totalDays = yaOficial
+    ? Math.floor((now.getTime() - (start as Date).getTime()) / 86400000)
+    : 0;
 
   return (
     <div className="mx-auto max-w-4xl px-4 py-12 md:py-20">
       <div className="text-center">
-        <p className="font-script text-3xl text-primary md:text-4xl">desde aquel día</p>
+        <p className="font-script text-3xl text-primary md:text-4xl">
+          {yaOficial ? "desde aquel día" : "todavía no, pero pronto"}
+        </p>
         <h1 className="mt-2 font-serif text-4xl md:text-6xl">Nuestro tiempo juntos</h1>
         <p className="mt-3 text-muted-foreground">
-          Empezamos el{" "}
-          <span className="font-serif italic text-foreground">
-            {start.toLocaleDateString("es-ES", { day: "numeric", month: "long", year: "numeric" })}
-          </span>
-          .
+          {yaOficial ? (
+            <>
+              Empezamos el{" "}
+              <span className="font-serif italic text-foreground">
+                {(start as Date).toLocaleDateString("es-ES", { day: "numeric", month: "long", year: "numeric" })}
+              </span>
+              .
+            </>
+          ) : (
+            "Aún no lo hacemos oficial… pero el reloj ya late por ti."
+          )}
         </p>
       </div>
 
@@ -78,12 +93,25 @@ function Contador() {
           </div>
 
           <div className="mt-8 text-center">
-            <p className="font-serif text-xl italic text-foreground md:text-2xl">
-              {totalDays.toLocaleString("es-ES")} días contigo, {NOMBRE_ELLA}.
-            </p>
-            <p className="mt-2 text-sm text-muted-foreground">
-              Y aún así, siempre se siente como el primero.
-            </p>
+            {yaOficial ? (
+              <>
+                <p className="font-serif text-xl italic text-foreground md:text-2xl">
+                  {totalDays.toLocaleString("es-ES")} días contigo, {NOMBRE_ELLA}.
+                </p>
+                <p className="mt-2 text-sm text-muted-foreground">
+                  Y aún así, siempre se siente como el primero.
+                </p>
+              </>
+            ) : (
+              <>
+                <p className="font-serif text-xl italic text-foreground md:text-2xl">
+                  Cero, por ahora… pero ya te elegí, {NOMBRE_ELLA}.
+                </p>
+                <p className="mt-2 text-sm text-muted-foreground">
+                  Este contador arrancará el día que lo hagamos oficial. Mientras tanto, late en cero, esperándote.
+                </p>
+              </>
+            )}
           </div>
         </div>
       </div>

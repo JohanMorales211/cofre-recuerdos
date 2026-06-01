@@ -1,7 +1,8 @@
 import { createFileRoute, Link } from "@tanstack/react-router";
 import { BookHeart, Clock, Library, Mail, Sparkles } from "lucide-react";
 import heroImg from "@/assets/library-hero.jpg";
-import { NOMBRE_ELLA } from "@/lib/config";
+import { NOMBRE_EL, NOMBRE_ELLA } from "@/lib/config";
+import { TiempoJuntos } from "@/components/tiempo-juntos";
 
 export const Route = createFileRoute("/")({
   head: () => ({
@@ -22,9 +23,9 @@ function Index() {
       <section className="relative mx-auto max-w-6xl px-4 pt-10 pb-16 md:pt-16 md:pb-24">
         <div className="grid items-center gap-10 md:grid-cols-2">
           <div className="animate-fade-up order-2 md:order-1">
-            <p className="font-script text-3xl text-primary md:text-4xl">Para</p>
+            <p className="font-script text-3xl text-primary md:text-4xl">el cofre de</p>
             <h1 className="mt-1 font-serif text-5xl leading-tight text-foreground md:text-7xl">
-              {NOMBRE_ELLA}
+              {NOMBRE_EL} <span className="text-primary">&amp;</span> {NOMBRE_ELLA}
             </h1>
             <div className="my-5 flex items-center gap-3">
               <span className="h-px flex-1 bg-border" />
@@ -36,8 +37,9 @@ function Index() {
               libros y nuestras tardes se vuelven páginas.
             </p>
             <p className="mt-4 max-w-md text-muted-foreground">
-              Aquí vivirán nuestros recuerdos: los grandes, los pequeñitos, los que solo
-              nosotros entendemos. Ábrelo cuando quieras revivirnos.
+              Este será el lugar donde guardemos todos
+              nuestros momentos valiosos —los grandes, los pequeñitos, los que solo
+              nosotros entendemos—. Ábrelo cuando quieras revivirnos.
             </p>
 
             <div className="mt-8 flex flex-wrap gap-3">
@@ -74,8 +76,8 @@ function Index() {
                       <Sparkles className="h-3 w-3 text-gold" />
                       <span className="h-px w-10 bg-primary/40" />
                     </div>
-                    <p className="mt-4 font-serif text-sm uppercase tracking-[0.3em] text-muted-foreground">
-                      {NOMBRE_ELLA}
+                    <p className="mt-4 font-serif text-sm uppercase tracking-[0.2em] text-muted-foreground">
+                      {NOMBRE_EL} &amp; {NOMBRE_ELLA}
                     </p>
                   </div>
                   <div className="font-serif text-xs italic text-muted-foreground">
@@ -88,6 +90,11 @@ function Index() {
             </div>
           </div>
         </div>
+      </section>
+
+      {/* Tiempo desde que nos vimos */}
+      <section className="relative mx-auto max-w-6xl px-4 pb-6">
+        <TiempoJuntos />
       </section>
 
       {/* Library backdrop card */}

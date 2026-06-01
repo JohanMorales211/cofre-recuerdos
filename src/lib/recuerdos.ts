@@ -27,3 +27,12 @@ export function getRecuerdos(): Recuerdo[] {
     (a, b) => parseFecha(b.memory_date).getTime() - parseFecha(a.memory_date).getTime(),
   );
 }
+
+// Última vez que se actualizó la estantería: el created_at más reciente de
+// todos los recuerdos. Devuelve null si el cofre está vacío.
+export function getUltimaActualizacion(): Date | null {
+  const recuerdos = db.recuerdos as Recuerdo[];
+  if (recuerdos.length === 0) return null;
+  const masReciente = Math.max(...recuerdos.map((r) => new Date(r.created_at).getTime()));
+  return new Date(masReciente);
+}

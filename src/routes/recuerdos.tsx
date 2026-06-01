@@ -1,7 +1,7 @@
 import { createFileRoute } from "@tanstack/react-router";
 import { useEffect, useMemo, useState } from "react";
 import {
-  BookOpen, Calendar, Library as LibraryIcon, LayoutGrid, Heart,
+  BookOpen, Calendar, Clock, Library as LibraryIcon, LayoutGrid, Heart,
 } from "lucide-react";
 import {
   Dialog, DialogContent, DialogHeader, DialogTitle,
@@ -10,7 +10,9 @@ import {
   Carousel, CarouselContent, CarouselItem, CarouselPrevious, CarouselNext,
   type CarouselApi,
 } from "@/components/ui/carousel";
-import { getRecuerdos, parseFecha, type Recuerdo } from "@/lib/recuerdos";
+import { formatDistanceToNow } from "date-fns";
+import { es } from "date-fns/locale";
+import { getRecuerdos, getUltimaActualizacion, parseFecha, type Recuerdo } from "@/lib/recuerdos";
 
 export const Route = createFileRoute("/recuerdos")({
   head: () => ({
@@ -63,6 +65,8 @@ function Recuerdos() {
         </div>
       </div>
 
+      <UltimaActualizacion />
+
       {memories.length === 0 ? (
         <EmptyState />
       ) : view === "shelf" ? (
@@ -104,6 +108,33 @@ function Recuerdos() {
         )}
       </Dialog>
     </div>
+  );
+}
+
+// Muestra cuánto hace que se actualizó la estantería (el recuerdo más reciente).
+function UltimaActualizacion() {
+  const fecha = useMemo(() => getUltimaActualizacion(), []);
+  const [hace, setHace] = useState("");
+
+  useEffect(() => {
+    if (fecha) setHace(formatDistanceToNow(fecha, { addSuffix: true, locale: es }));
+  }, [fecha]);
+
+  if (!fecha) return null;
+
+  const fechaLarga = fecha.toLocaleDateString("es-ES", {
+    day: "numeric", month: "long", year: "numeric",
+  });
+
+  return (
+    <p
+      className="mt-6 flex flex-wrap items-center justify-center gap-x-1.5 text-center text-sm text-muted-foreground"
+      title={`Última actualización: ${fechaLarga}`}
+    >
+      <Clock className="h-3.5 w-3.5 shrink-0 text-primary/70" />
+      <span>Estantería actualizada</span>
+      <span className="font-medium text-foreground">{hace || fechaLarga}</span>
+    </p>
   );
 }
 
