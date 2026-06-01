@@ -1,0 +1,25 @@
+{
+  "tabla": "memories",
+  "descripcion": "Cofre de recuerdos. Cada objeto del arreglo 'recuerdos' equivale a una fila de la antigua tabla 'memories'. Para añadir un recuerdo, copia un bloque, cámbiale los datos y guarda. Las fotos van en la carpeta /public/recuerdos y se referencian con la ruta '/recuerdos/archivo.webp'.",
+  "columnas": {
+    "id": "Identificador único del recuerdo (texto, clave primaria).",
+    "title": "Título del recuerdo.",
+    "memory_date": "Fecha del recuerdo en formato AAAA-MM-DD. Se usa para ordenar y para agrupar por 'Capítulo' (año).",
+    "description": "La historia. Admite varios párrafos usando \\n.",
+    "photos": "Lista de rutas a imágenes dentro de /public/recuerdos. Si hay más de una, se muestran en carrusel. Puede ir vacía [].",
+    "created_at": "Fecha/hora en que se guardó en el cofre (ISO 8601)."
+  },
+  "recuerdos": [
+    {
+      "id": "nuestra-primera-foto",
+      "title": "Nuestra primera foto",
+      "memory_date": "2026-03-12",
+      "description": "El día que por fin nos tomamos una foto juntos.\n\nNo sé si salimos mirando a la cámara o mirándonos, pero ahí quedó: la prueba de que esto empezaba a ser nuestro.\n\nLa primera de muchas.",
+      "photos": [
+        "/recuerdos/marzo-12-2026-01.webp",
+        "/recuerdos/marzo-12-2026-02.webp"
+      ],
+      "created_at": "2026-03-12T21:00:00Z"
+    }
+  ]
+}
