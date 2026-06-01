@@ -1,0 +1,148 @@
+@import "tailwindcss" source(none);
+@source "../src";
+@import "tw-animate-css";
+
+@custom-variant dark (&:is(.dark *));
+
+@theme inline {
+  --radius-sm: calc(var(--radius) - 4px);
+  --radius-md: calc(var(--radius) - 2px);
+  --radius-lg: var(--radius);
+  --radius-xl: calc(var(--radius) + 4px);
+  --radius-2xl: calc(var(--radius) + 8px);
+  --color-background: var(--background);
+  --color-foreground: var(--foreground);
+  --color-card: var(--card);
+  --color-card-foreground: var(--card-foreground);
+  --color-popover: var(--popover);
+  --color-popover-foreground: var(--popover-foreground);
+  --color-primary: var(--primary);
+  --color-primary-foreground: var(--primary-foreground);
+  --color-secondary: var(--secondary);
+  --color-secondary-foreground: var(--secondary-foreground);
+  --color-muted: var(--muted);
+  --color-muted-foreground: var(--muted-foreground);
+  --color-accent: var(--accent);
+  --color-accent-foreground: var(--accent-foreground);
+  --color-destructive: var(--destructive);
+  --color-destructive-foreground: var(--destructive-foreground);
+  --color-border: var(--border);
+  --color-input: var(--input);
+  --color-ring: var(--ring);
+  --color-rose: var(--rose);
+  --color-lilac: var(--lilac);
+  --color-mint: var(--mint);
+  --color-cream: var(--cream);
+  --color-gold: var(--gold);
+  --font-serif: "Cormorant Garamond", "Playfair Display", Georgia, serif;
+  --font-sans: "Quicksand", "Inter", system-ui, sans-serif;
+  --font-script: "Dancing Script", cursive;
+}
+
+:root {
+  --radius: 0.75rem;
+
+  /* Pastel library palette */
+  --background: oklch(0.975 0.012 80);          /* warm cream */
+  --foreground: oklch(0.32 0.04 30);            /* warm dark brown */
+
+  --card: oklch(0.985 0.012 80);
+  --card-foreground: oklch(0.32 0.04 30);
+
+  --popover: oklch(0.985 0.012 80);
+  --popover-foreground: oklch(0.32 0.04 30);
+
+  --primary: oklch(0.55 0.08 25);               /* warm rose-brown */
+  --primary-foreground: oklch(0.985 0.012 80);
+
+  --secondary: oklch(0.92 0.025 30);            /* dusty beige */
+  --secondary-foreground: oklch(0.35 0.04 30);
+
+  --muted: oklch(0.94 0.018 70);
+  --muted-foreground: oklch(0.48 0.03 40);
+
+  --accent: oklch(0.88 0.055 350);              /* powdery pink */
+  --accent-foreground: oklch(0.32 0.04 30);
+
+  --destructive: oklch(0.6 0.18 25);
+  --destructive-foreground: oklch(0.985 0.012 80);
+
+  --border: oklch(0.88 0.02 60);
+  --input: oklch(0.92 0.018 60);
+  --ring: oklch(0.75 0.06 350);
+
+  --rose: oklch(0.86 0.07 5);                   /* dusty rose */
+  --lilac: oklch(0.84 0.06 310);                /* soft lilac */
+  --mint: oklch(0.88 0.055 165);                /* gentle mint */
+  --cream: oklch(0.96 0.025 85);                /* cream */
+  --gold: oklch(0.74 0.09 75);                  /* warm gold lamp */
+
+  --gradient-warm: linear-gradient(135deg, oklch(0.96 0.025 85) 0%, oklch(0.88 0.055 350) 100%);
+  --gradient-shelf: linear-gradient(180deg, oklch(0.92 0.04 70) 0%, oklch(0.82 0.05 60) 100%);
+  --gradient-lamp: radial-gradient(circle at center, oklch(0.95 0.09 80 / 0.55), transparent 70%);
+  --gradient-spine: linear-gradient(180deg, oklch(0.86 0.07 5) 0%, oklch(0.7 0.09 10) 100%);
+
+  --shadow-book: 0 8px 24px -8px oklch(0.4 0.06 30 / 0.25), 0 2px 4px oklch(0.4 0.06 30 / 0.08);
+  --shadow-soft: 0 4px 20px -6px oklch(0.4 0.06 30 / 0.15);
+  --shadow-glow: 0 0 40px oklch(0.85 0.1 80 / 0.4);
+
+  --paper-texture:
+    radial-gradient(circle at 20% 30%, oklch(0.92 0.04 70 / 0.15) 0, transparent 40%),
+    radial-gradient(circle at 80% 70%, oklch(0.88 0.05 350 / 0.12) 0, transparent 45%);
+}
+
+@layer base {
+  * {
+    border-color: var(--color-border);
+  }
+
+  html, body {
+    background-color: var(--color-background);
+    color: var(--color-foreground);
+    font-family: var(--font-sans);
+    background-image: var(--paper-texture);
+    background-attachment: fixed;
+  }
+
+  h1, h2, h3, h4 {
+    font-family: var(--font-serif);
+    letter-spacing: -0.01em;
+  }
+}
+
+@layer utilities {
+  .font-serif { font-family: var(--font-serif); }
+  .font-script { font-family: var(--font-script); }
+  .bg-paper { background-image: var(--paper-texture); }
+  .bg-gradient-warm { background: var(--gradient-warm); }
+  .bg-gradient-shelf { background: var(--gradient-shelf); }
+  .shadow-book { box-shadow: var(--shadow-book); }
+  .shadow-soft { box-shadow: var(--shadow-soft); }
+  .shadow-glow { box-shadow: var(--shadow-glow); }
+  .lamp-glow {
+    background: var(--gradient-lamp);
+  }
+}
+
+@keyframes float-petal {
+  0% { transform: translateY(-10vh) translateX(0) rotate(0deg); opacity: 0; }
+  10% { opacity: 0.6; }
+  90% { opacity: 0.5; }
+  100% { transform: translateY(110vh) translateX(40px) rotate(360deg); opacity: 0; }
+}
+@keyframes flicker {
+  0%, 100% { opacity: 0.9; }
+  50% { opacity: 1; }
+}
+@keyframes open-book {
+  from { transform: perspective(1200px) rotateY(-90deg); opacity: 0; }
+  to { transform: perspective(1200px) rotateY(0deg); opacity: 1; }
+}
+@keyframes fade-up {
+  from { opacity: 0; transform: translateY(16px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+.animate-petal { animation: float-petal 14s linear infinite; }
+.animate-flicker { animation: flicker 4s ease-in-out infinite; }
+.animate-open-book { animation: open-book 0.6s ease-out both; }
+.animate-fade-up { animation: fade-up 0.7s ease-out both; }
