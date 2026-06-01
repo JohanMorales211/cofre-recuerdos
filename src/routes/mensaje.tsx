@@ -1,6 +1,6 @@
 import { createFileRoute } from "@tanstack/react-router";
-import { Heart, Sparkles } from "lucide-react";
-import { MENSAJE_DEDICADO, NOMBRE_ELLA } from "@/lib/config";
+import { Film, Heart, Sparkles } from "lucide-react";
+import { MENSAJE_DEDICADO, NOMBRE_ELLA, VIDEO_DRIVE_ID } from "@/lib/config";
 
 export const Route = createFileRoute("/mensaje")({
   head: () => ({
@@ -37,9 +37,31 @@ function Mensaje() {
         </p>
       </article>
 
-      <p className="mt-6 text-center text-xs text-muted-foreground">
-        Para cambiar este mensaje, edita <code className="rounded bg-secondary px-1.5 py-0.5">src/lib/config.ts</code>.
-      </p>
+      {/* Un video para ti */}
+      <section className="animate-fade-up mt-12">
+        <div className="flex items-center justify-center gap-3 text-primary">
+          <span className="h-px w-10 bg-primary/40" />
+          <Film className="h-4 w-4" />
+          <p className="font-script text-2xl">un video para ti</p>
+          <span className="h-px w-10 bg-primary/40" />
+        </div>
+
+        <div className="mx-auto mt-5 w-full max-w-xs rounded-[2rem] border border-border bg-card p-2 shadow-book">
+          <div className="relative aspect-[9/16] overflow-hidden rounded-[1.6rem] bg-black">
+            <iframe
+              src={`https://drive.google.com/file/d/${VIDEO_DRIVE_ID}/preview`}
+              title="Un video para ti"
+              allow="autoplay; encrypted-media; fullscreen"
+              allowFullScreen
+              className="absolute inset-0 h-full w-full"
+            />
+          </div>
+        </div>
+
+        <p className="mt-3 text-center text-xs text-muted-foreground">
+          Si no carga, dale al boton de redireccionar.
+        </p>
+      </section>
     </div>
   );
 }

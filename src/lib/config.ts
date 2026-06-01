@@ -13,13 +13,19 @@ export const NOMBRE_EL = "Johan";
 export const NOMBRE_ELLA = "Carol";
 
 // Mensaje dedicado (puedes cambiarlo cuando quieras).
-export const MENSAJE_DEDICADO = `Para ti, que conviertes los días grises en páginas iluminadas.
+export const MENSAJE_DEDICADO = `Desde que te conocí, todo ha sido distinto. Los días tienen un color que antes no tenían, y hasta lo más simple —un mensaje, una canción, una tarde cualquiera— se vuelve importante cuando es contigo.
 
-Si pudiera guardar el sonido de tu risa en un frasco de cristal, lo abriría cada mañana antes que el café. Si pudiera doblar el tiempo, lo plegaría como una carta y lo metería en el bolsillo de tu abrigo, para que nunca te falte.
+No sé cómo lo hiciste, pero llegaste y todo encajó en su lugar. Te pienso a cada rato, te admiro, y te amo —de verdad— con una certeza tranquila que nunca había sentido.
 
-Este pequeño cofre es nuestra biblioteca: cada recuerdo, un libro; cada foto, una hoja seca entre páginas; cada palabra tuya, un marcador dorado.
+Por eso solo quiero una cosa: seguir. Seguir conociéndote, seguir riéndome a tu lado, seguir llenando este cofre de recuerdos contigo por mucho, mucho tiempo.
 
-Gracias por ser mi historia favorita.
+Gracias por llegar y cambiarlo todo.
 
 Con todo lo que soy,
-— Tu`;
+— Johan`;
+
+// ID del video de Google Drive que se muestra en la página "Para ti".
+// Sácalo de la URL para compartir (.../file/d/ESTE_ES_EL_ID/view).
+// Importante: en Drive, comparte el archivo como "Cualquiera con el enlace"
+// para que el video se reproduzca para todos (no solo para ti).
+export const VIDEO_DRIVE_ID = "1SQH67uBmzGCDaioRMMrr54QpebFbJhhR";

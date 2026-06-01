@@ -66,6 +66,8 @@ export const Route = createRootRouteWithContext<{ queryClient: QueryClient }>()(
       { name: "theme-color", content: "#f7e6e0" },
     ],
     links: [
+      { rel: "icon", type: "image/png", href: "/foto-web.png" },
+      { rel: "apple-touch-icon", href: "/foto-web.png" },
       { rel: "stylesheet", href: appCss },
       { rel: "preconnect", href: "https://fonts.googleapis.com" },
       { rel: "preconnect", href: "https://fonts.gstatic.com", crossOrigin: "anonymous" },
@@ -197,7 +199,7 @@ function RootComponent() {
             <Outlet />
           </main>
           <footer className="border-t border-border/40 py-6 text-center">
-            <p className="font-script text-xl text-primary/70">hecho con cariño</p>
+            <p className="font-script text-xl text-primary/70">hecho con amor</p>
           </footer>
         </div>
       </div>
