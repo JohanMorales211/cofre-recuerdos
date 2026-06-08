@@ -2,7 +2,6 @@ import { useEffect, useMemo, useState } from "react";
 import { Heart } from "lucide-react";
 import { FECHA_PRIMER_DIA } from "@/lib/config";
 
-// Descompone la diferencia entre dos fechas en años/meses/días/h/min/seg.
 function diffJuntos(from: Date, to: Date) {
   let years = to.getFullYear() - from.getFullYear();
   let months = to.getMonth() - from.getMonth();
