@@ -3,7 +3,7 @@
 // Fecha y hora en que se hicieron novios oficialmente (formato ISO).
 // Déjalo VACÍO ("") mientras aún no sea oficial: la página "Nuestro tiempo"
 // mostrará el contador en cero, esperando ese día.
-export const FECHA_INICIO: string = "";
+export const FECHA_INICIO: string = "2026-06-07T20:05:00";
 
 // Primer día que se conocieron. Alimenta el contador de la portada.
 export const FECHA_PRIMER_DIA = "2026-02-12T00:00:00";
